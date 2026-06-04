@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISION 2040</title>
+    <!-- 視認性の高いフォントとアイコンの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 視認性を極限まで高めた超高コントラスト配色 */
+            --bg-main: #02040a;          /* 漆黒 */
+            --bg-card: #0b1224;          /* 深海（明瞭なカード背景） */
+            --border-line: #1e293b;      /* シャープな境界線 */
+            
+            --text-pure: #ffffff;        /* 純白（メイン文字） */
+            --text-muted: #94a3b8;       /* 明るいグレー（補足文字） */
+            
+            /* 1秒で脳に刺さるアクセントカラー */
+            --cyan: #00f0ff;             /* エレクトリック・シアン */
+            --orange: #ff5500;           /* 高熱アラート・オレンジ */
+            --green: #00ff66;            /* クリーン・グリーン */
+            --red: #ff2a51;              /* 致命的ボトルネック・レッド */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            padding: 2.5rem;
+            min-height: 100vh;
+            letter-spacing: -0.01em;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* アワード級・漆黒に映えるミニマルヘッダー */
+        header {
+            grid-column: span 12;
+            background: var(--bg-card);
+            border: 2px solid var(--border-line);
+            border-left: 6px solid var(--cyan);
+            padding: 2.5rem;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-area h1 {
+            font-family: 'Cabinet Grotesk', 'Noto Sans JP', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .title-area p {
+            color: var(--cyan);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        .profile-badge {
+            text-align: right;
+            border-right: 6px solid var(--orange);
+            padding-right: 1.5rem;
+        }
+        .profile-badge .name { font-size: 1.4rem; font-weight: 900; color: #fff; }
+        .profile-badge .id { font-size: 0.9rem; color: var(--text-muted); font-weight: bold; margin-top: 0.2rem; }
+
+        /* カード共通レイアウト */
+        .card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-line);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-num {
+            font-family: 'Cabinet Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-num span { color: var(--cyan); }
+
+        /* グリッド幅指定 */
+        .col-4 { grid-column: span 4; }
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+
+        /* 01. キャリアコア：縦型タイムライン */
+        .identity-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .step-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-line);
+            padding: 1.2rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .step-box.active {
+            border-color: var(--cyan);
+            background: rgba(0, 240, 255, 0.05);
+        }
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--cyan);
+        }
+        .step-box.active .step-icon {
+            background: var(--cyan);
+            color: var(--bg-main);
+        }
+        .step-text h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-pure); margin-bottom: 0.2rem;}
+        .step-text p { font-size: 0.9rem; color: var(--text-muted); font-weight: 500;}
+
+        /* 02. 社会予測マトリクス */
+        .matrix-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .matrix-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-line);
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+        .matrix-card h4 { font-size: 1.3rem; font-weight: 800; color: var(--text-pure); margin-bottom: 0.8rem; }
+        .matrix-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+        
+        .badge-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+        .badge { font-size: 0.85rem; font-weight: 700; background: var(--bg-main); border: 1px solid var(--border-line); padding: 0.3rem 0.8rem; border-radius: 8px; color: var(--cyan); }
+        .badge.orange-badge { color: var(--orange); }
+
+        .banner-bar {
+            grid-column: span 2;
+            background: linear-gradient(90deg, rgba(0,240,255,0.15), rgba(0,255,102,0.15));
+            border: 2px solid var(--green);
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        .banner-bar h4 { font-size: 1.2rem; font-weight: 900; color: var(--green); }
+        .banner-bar p { font-size: 0.95rem; color: var(--text-pure); font-weight: 500; margin-top: 0.2rem; }
+        .banner-right { font-family: 'Cabinet Grotesk', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--green); letter-spacing: 1px; }
+
+        /* 03. 熱力学の致命的ボトルネック */
+        .thermo-list { display: flex; flex-direction: column; gap: 1.2rem; }
+        .thermo-item {
+            display: grid;
+            grid-template-columns: 1.8fr 0.4fr 2fr;
+            align-items: center;
+            background: rgba(255,255,255,0.02);
+            padding: 1.2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-line);
+        }
+        .t-left { font-size: 1.1rem; font-weight: 700; color: var(--text-pure); }
+        .t-mid { text-align: center; color: var(--text-muted); font-size: 1.2rem; }
+        .t-right { font-size: 0.95rem; font-weight: 700; color: #ff5252; background: rgba(255,50,50,0.1); padding: 0.6rem 1rem; border-radius: 10px; border: 1px solid rgba(255,50,50,0.2); }
+        
+        .critical-lock {
+            margin-top: 1.5rem;
+            background: var(--red);
+            color: #ffffff;
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255, 42, 81, 0.3);
+        }
+
+        /* 04. 解決策・未来ビジョン */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .vision-card {
+            border: 2px solid var(--green);
+            background: rgba(0, 255, 102, 0.03);
+            padding: 1.8rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .vision-card.blue-vision {
+            border-color: var(--cyan);
+            background: rgba(0, 240, 255, 0.03);
+        }
+        .v-icon { font-size: 2.2rem; color: var(--green); }
+        .vision-card.blue-vision .v-icon { color: var(--cyan); }
+        .vision-card h4 { font-size: 1.3rem; font-weight: 900; color: var(--text-pure); }
+        .vision-card p { font-size: 1rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* レスポンシブ（念のため） */
+        @media (max-width: 1024px) {
+            .col-4, .col-8, .col-6 { grid-column: span 12; }
+            .matrix-container, .vision-grid { grid-template-columns: 1fr; }
+            .banner-bar { grid-column: span 1; flex-direction: column; text-align: center; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <!-- タイトルヘッダー -->
+    <header>
+        <div class="title-area">
+            <h1>HIGH-EFFICIENCY TURBINE VISION 2040</h1>
+            <p>材料の観点から高効率タービンを設計し，脱炭素社会に貢献する</p>
+        </div>
+        
+    </header>
+
+    <!-- 01. はじめに（研究の軸） -->
+    <div class="card col-4">
+        <div class="card-num"><span>01 //</span> STARTING POINT</div>
+        <div class="identity-steps">
+            <div class="step-box active">
+                <div class="step-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="step-text">
+                    <h3>自身の強み</h3>
+                    <p>大学基礎レベルで最も得意な「材料力学」</p>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="step-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="step-text">
+                    <h3>キャリアパス (B4〜M2)</h3>
+                    <p>材料系研究室で研究を行いたい．</p>
+                </div>
+            </div>
+            <div class="step-box">
+                <div class="step-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="step-text">
+                    <h3>将来への軸</h3>
+                    <p>「材料」を基盤にエネルギー社会へ貢献</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 02. 2040年の社会予測 -->
+    <div class="card col-8">
+        <div class="card-num"><span>02 //</span> 2040 GLOBAL PROJECTION</div>
+        <div class="matrix-container">
+            <div class="matrix-card">
+                <h4>航空・船舶・火力発電</h4>
+                <p>再生可能エネルギーが普及する一方で，これら大型モビリティや基幹インフラでは，高火力な「燃焼系エネルギー」の利用がこれまで以上に拡大する．</p>
+                <div class="badge-row">
+                    <span class="badge">水素</span><span class="badge">アンモニア</span><span class="badge">合成燃料</span>
+                </div>
+            </div>
+            <div class="matrix-card">
+                <h4>新興国の経済成長</h4>
+                <p>インドやアフリカ等における人口増加と所得向上に伴い，過渡期のインフラとして「原油ベース」の経済成長が予測され，需要は一定程度維持される．</p>
+                <div class="badge-row">
+                    <span class="badge orange-badge">インド・アフリカ</span><span class="badge orange-badge">原油需要維持</span>
+                </div>
+            </div>
+            <div class="banner-bar">
+                <div>
+                    <h4>第7次エネルギー基本計画への回答 ➔ 「徹底的な高効率化」</h4>
+                    <p>資源のムダを排し，「より少ない燃料で，より多くのエネルギー」を得る技術の確立．</p>
+                </div>
+                <div class="banner-right">HIGH EFFICIENCY</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03. 熱力学的なボトルネック -->
+    <div class="card col-6">
+        <div class="card-num"><span>03 //</span> THERMODYNAMIC BOTTLENECK</div>
+        <div class="thermo-list">
+            <div class="thermo-item">
+                <div class="t-left"><i class="fa-solid fa-temperature-high" style="color:var(--orange);"></i> ランキンサイクルの最高温度上昇</div>
+                <div class="t-mid"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="t-right">❌ 現在のタービン材料の「耐熱限界」により制限される</div>
+            </div>
+            <div class="thermo-item">
+                <div class="t-left"><i class="fa-solid fa-droplet" style="color:var(--cyan);"></i> 凝縮器の圧力を下げる</div>
+                <div class="t-mid"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="t-right" style="color:#ffb300; background:rgba(255,179,0,0.1); border-color:rgba(255,179,0,0.2);">❌ 蒸気の乾き度が低下し，高速の「液滴」がブレードを損傷</div>
+            </div>
+            <div class="critical-lock">
+                <i class="fa-solid fa-lock"></i> 結論：エネルギー変換効率の限界は，すべて「材料の限界」に帰結する
+            </div>
+        </div>
+    </div>
+
+    <!-- 04. 将来の展望（挑戦） -->
+    <div class="card col-6">
+        <div class="card-num"><span>04 //</span> FUTURE VISION & CHALLENGE</div>
+        <div class="vision-grid">
+            <div class="vision-card">
+                <div class="v-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4>新材料・コーティング開発</h4>
+                <p>新しい発電サイクルを模索するのではなく，超高温・超高圧，そして激しい液滴の衝撃に耐え抜く「次世代の耐熱材料・遮熱コーティング」を開発したい（現時点では，不明瞭な部分もある．）．</p>
+            </div>
+            <div class="vision-card blue-vision">
+                <div class="v-icon"><i class="fa-solid fa-industry"></i></div>
+                <h4>重工業での実用設計</h4>
+                <p>水素やアンモニアの燃焼に対応できる超高耐久タービンを設計・実現．材料技術によって効率の限界を突破し，2040年の脱炭素社会へ貢献する．</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
