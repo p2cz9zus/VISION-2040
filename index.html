@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VISION 2040</title>
-    <!-- 視認性の高いフォントとアイコンの読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
@@ -21,7 +20,7 @@
             --text-muted: #94a3b8;       /* 明るいグレー（補足文字） */
             
             /* 1秒で脳に刺さるアクセントカラー */
-            --cyan: #00f0ff;             /* エレクトリック・シアン */
+            --cyan: #00f0ff;              /* エレクトリック・シアン */
             --orange: #ff5500;           /* 高熱アラート・オレンジ */
             --green: #00ff66;            /* クリーン・グリーン */
             --red: #ff2a51;              /* 致命的ボトルネック・レッド */
@@ -99,7 +98,7 @@
         .card-num span { color: var(--cyan); }
 
         /* 初期値はすべて12列（横幅いっぱい）にしてレスポンシブで制御 */
-        .col-4, .col-8, .col-6 { grid-column: span 12; }
+        .col-4, .col-8, .col-6, .col-12 { grid-column: span 12; }
 
         /* 01. キャリアコア：タイムライン */
         .identity-steps {
@@ -225,6 +224,78 @@
         .vision-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-pure); }
         .vision-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
+        /* 05. 導入戦略と材料工学的アプローチ（新規追加セクション） */
+        .hurdle-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .hurdle-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .hurdle-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-line);
+            border-left: 4px solid var(--cyan);
+            padding: 1.25rem;
+            border-radius: 16px;
+        }
+        .hurdle-box.orange-left {
+            border-left-color: var(--orange);
+        }
+        .hurdle-box h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .hurdle-box h4 i { color: var(--cyan); }
+        .hurdle-box.orange-left h4 i { color: var(--orange); }
+        .hurdle-box p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .core-concept {
+            background: linear-gradient(135deg, rgba(11, 18, 36, 0.8), rgba(2, 4, 10, 0.9));
+            border: 2px dashed var(--green);
+            padding: 1.5rem;
+            border-radius: 18px;
+            text-align: left;
+        }
+        .core-concept h4 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--green);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .core-concept ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .core-concept li {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .core-concept li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-size: 0.8rem;
+            top: 2px;
+        }
+
         /* ────────────────────────────────────────────────────────
            ★ タブレット・PC向けメディアクエリ（画面が広い時のレイアウト制御）
         ────────────────────────────────────────────────────────── */
@@ -238,6 +309,7 @@
             .col-4 { grid-column: span 4; }
             .col-8 { grid-column: span 8; }
             .col-6 { grid-column: span 6; }
+            .col-12 { grid-column: span 12; }
 
             .matrix-container { grid-template-columns: 1fr 1fr; display: grid; gap: 1.5rem; }
             .banner-bar { grid-column: span 2; flex-direction: row; justify-content: space-between; align-items: center; }
@@ -249,6 +321,9 @@
             .critical-lock { font-size: 1.3rem; }
 
             .vision-grid { grid-template-columns: 1fr 1fr; display: grid; gap: 1.5rem; }
+
+            /* 新規追加セクションのPC対応 */
+            .hurdle-row { grid-template-columns: 1fr 1fr; display: grid; gap: 1.5rem; }
         }
     </style>
 </head>
@@ -256,7 +331,6 @@
 
 <div class="dashboard">
 
-    <!-- タイトルヘッダー -->
     <header>
         <div class="title-area">
             <h1>HIGH-EFFICIENCY TURBINE VISION 2040</h1>
@@ -264,7 +338,6 @@
         </div>
     </header>
 
-    <!-- 01. はじめに（研究の軸） -->
     <div class="card col-4">
         <div class="card-num"><span>01 //</span> STARTING POINT</div>
         <div class="identity-steps">
@@ -292,7 +365,6 @@
         </div>
     </div>
 
-    <!-- 02. 2040年の社会予測 -->
     <div class="card col-8">
         <div class="card-num"><span>02 //</span> 2040 GLOBAL PROJECTION</div>
         <div class="matrix-container">
@@ -305,7 +377,7 @@
             </div>
             <div class="matrix-card">
                 <h4>新興国の経済成長</h4>
-                <p>インドやアフリカ等における人口増加と所得向上に伴い，過渡期のインフラとして「原油ベース」の経済成長が予測され，需要は一定程度維持される．</p>
+                <p>インドやアフリカ等における人口増加と所得向上に伴い，原油をベースとした経済成長が予測され，需要は一定程度維持されるものと考える．</p>
                 <div class="badge-row">
                     <span class="badge orange-badge">インド・アフリカ</span><span class="badge orange-badge">原油需要維持</span>
                 </div>
@@ -313,14 +385,13 @@
             <div class="banner-bar">
                 <div>
                     <h4>徹底的な高効率化</h4>
-                    <p>資源のムダを排し，「より少ない燃料で，より多くのエネルギー」を得る技術の確立．</p>
+                    <p>資源のムダをなくし，「より少ない燃料で，より多くのエネルギー」を得る技術の確立（＝高効率化）．</p>
                 </div>
                 <div class="banner-right">HIGH EFFICIENCY</div>
             </div>
         </div>
     </div>
 
-    <!-- 03. 熱力学的なボトルネック -->
     <div class="card col-6">
         <div class="card-num"><span>03 //</span> THERMODYNAMIC BOTTLENECK</div>
         <div class="thermo-list">
@@ -340,20 +411,43 @@
         </div>
     </div>
 
-    <!-- 04. 将来の展望（挑戦） -->
     <div class="card col-6">
-        <div class="card-num"><span>04 //</span> FUTURE VISION & CHALLENGE</div>
+        <div class="card-num"><span>04 //</span> My VISION & CHALLENGE</div>
         <div class="vision-grid">
             <div class="vision-card">
                 <div class="v-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h4>新材料・コーティング開発</h4>
-                <p>新しい発電サイクルを模索するのではなく，超高温・超高圧，そして激しい液滴の衝撃に耐え抜く「次世代の耐熱材料・遮熱コーティング」を開発したい（現時点では，不明瞭な部分もある．）．</p>
+                <p>新しい発電サイクルを模索するのではなく，超高温・超高圧，そして激しい液滴の衝撃に耐え抜く「次世代の耐熱材料やコーティング技術等」を開発したい（現時点では，不明瞭な部分もある．）．</p>
             </div>
             <div class="vision-card blue-vision">
                 <div class="v-icon"><i class="fa-solid fa-industry"></i></div>
                 <h4>重工業での実用設計</h4>
-                <p>水素やアンモニアの燃焼に対応できる超高耐久タービンを設計・実現．材料技術によって効率の限界を突破し，2040年の脱炭素社会へ貢献する．</p>
+                <p>材料技術によって効率の限界を突破し，2040年の脱炭素社会へ貢献したい．</p>
             </div>
+        </div>
+    </div>
+
+    <div class="card col-12">
+        <div class="card-num"><span>05（＋α） //</span> IMPLEMENTATION STRATEGY</div>
+        <div class="hurdle-layout">
+            
+            <div class="hurdle-row">
+                <div class="hurdle-box">
+                    <h4><i class="fa-solid fa-network-wired"></i> 既存インフラの有効活用</h4>
+                    <p>
+                        新技術を社会へ実装する際の最大のボトルネックは「新インフラ建設に伴う初期コストと時間」だと考える．輸送分野における水素キャリア（有機ハイドライド法など）が既存の石油設備をそのまま流用することで導入ハードルを下げるように，エネルギー変換や発電インフラの領域においても，<strong>「現行インフラの活用が可能」であることを前提としたアプローチこそが最も現実的</strong>だと考える．
+                    </p>
+                </div>
+
+                <div class="hurdle-box orange-left">
+                    <h4><i class="fa-solid fa-hammer"></i> 導入のハードルを低下させる例：「パッチング」による既存インフラの耐久性向上</h4>
+                    <p>
+                        例えば，機械工学セミナーで学んだ「局所押圧法」は，製品そのものを変更するのではなく，材料の特定の部位に簡単な処理を施すことで，部材そのものの耐疲労特性や寿命を劇的に向上させる技術である．
+                    </p>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
